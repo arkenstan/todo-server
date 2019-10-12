@@ -1,46 +1,52 @@
 import { Id, NullableId, Paginated, Params, ServiceMethods } from '@feathersjs/feathers';
 import { Application } from '../../../../declarations';
 
-interface Data {}
+interface Data {
+	_id: string;
+	content?: string;
+	status?: string;
+	listRef: string;
+	createdBy?: string;
+}
 
 interface ServiceOptions {}
 
 export class Task implements ServiceMethods<Data> {
-  app: Application;
-  options: ServiceOptions;
+	app: Application;
+	options: ServiceOptions;
 
-  constructor (options: ServiceOptions = {}, app: Application) {
-    this.options = options;
-    this.app = app;
-  }
+	constructor(options: ServiceOptions = {}, app: Application) {
+		this.options = options;
+		this.app = app;
+	}
 
-  async find (params?: Params): Promise<Data[] | Paginated<Data>> {
-    return [];
-  }
+	async find(params?: Params): Promise<Data[] | Paginated<Data>> {
+		let result = await this.app.service('task').find(params);
+		return result;
+	}
 
-  async get (id: Id, params?: Params): Promise<Data> {
-    return {
-      id, text: `A new message with ID: ${id}!`
-    };
-  }
+	async get(id: Id, params?: Params): Promise<Data> {
+		let result = await this.app.service('task').get(id, params);
+		return result;
+	}
 
-  async create (data: Data, params?: Params): Promise<Data> {
-    if (Array.isArray(data)) {
-      return Promise.all(data.map(current => this.create(current, params)));
-    }
+	async create(data: Data, params?: Params): Promise<Data> {
+		let result = await this.app.service('task').create(data, params);
+		return result;
+	}
 
-    return data;
-  }
+	async update(id: NullableId, data: Data, params?: Params): Promise<Data> {
+		let result = await this.app.service('task').update(id, data, params);
+		return result;
+	}
 
-  async update (id: NullableId, data: Data, params?: Params): Promise<Data> {
-    return data;
-  }
+	async patch(id: NullableId, data: Data, params?: Params): Promise<Data> {
+		let result = await this.app.service('task').patch(id, data, params);
+		return result;
+	}
 
-  async patch (id: NullableId, data: Data, params?: Params): Promise<Data> {
-    return data;
-  }
-
-  async remove (id: NullableId, params?: Params): Promise<Data> {
-    return { id };
-  }
+	async remove(id: NullableId, params?: Params): Promise<Data> {
+		let result = await this.app.service('task').remove(id, params);
+		return result;
+	}
 }

@@ -1,5 +1,5 @@
 import * as authentication from '@feathersjs/authentication';
-import { required } from 'feathers-hooks-common';
+import { disallow } from 'feathers-hooks-common';
 // Don't remove this comment. It's needed to format import lines nicely.
 const { authenticate } = authentication.hooks;
 const { setField } = require('feathers-authentication-hooks');
@@ -13,7 +13,7 @@ export default {
 		find: [ limitToUser ],
 		get: [ limitToUser ],
 		create: [ setUserId ],
-		update: [ limitToUser ],
+		update: [ disallow('external'), limitToUser ],
 		patch: [ limitToUser ],
 		remove: [ limitToUser ]
 	},
