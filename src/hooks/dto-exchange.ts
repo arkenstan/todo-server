@@ -4,7 +4,6 @@ import { Hook, HookContext } from '@feathersjs/feathers';
 
 export default (exchangeSchema: any): Hook => {
 	return async (context: HookContext) => {
-		const { exchangeSchema } = options;
 		let dataObj: any;
 		if (context.type === 'before') {
 			dataObj = context.data;
@@ -12,11 +11,12 @@ export default (exchangeSchema: any): Hook => {
 			dataObj = context.result;
 		}
 		let transferObj = {};
-		for (let key of exchangeSchema) {
-			if (dataObj[key]) {
-				transferObj = { ...transferObj, [key]: dataObj[key] };
+		for (const key in exchangeSchema) {
+			if (dataObj && dataObj[key]) {
+				transferObj = { ...transferObj, [exchangeSchema[key]]: dataObj[key] };
 			}
 		}
+		console.log(transferObj);
 		context.data = transferObj;
 		return context;
 	};

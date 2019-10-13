@@ -35,7 +35,7 @@ export class Task implements ServiceMethods<Data> {
 		return result;
 	}
 
-	async update(id: NullableId, data: Data, params?: Params): Promise<Data> {
+	async update(id: Id, data: Data, params?: Params): Promise<Data> {
 		let result = await this.app.service('task').update(id, data, params);
 		return result;
 	}

@@ -20,7 +20,7 @@ const dtoOptions = {
 
 export default {
 	before: {
-		all: [ authenticate('jwt'), dtoExchange(dtoOptions) ],
+		all: [ authenticate('jwt'), dtoExchange(dtoOptions.incoming) ],
 		find: [ addListToParams ],
 		get: [ addListToParams ],
 		create: [ addListToData ],
@@ -30,7 +30,7 @@ export default {
 	},
 
 	after: {
-		all: [ dtoExchange(dtoOptions) ],
+		all: [ dtoExchange(dtoOptions.outgoing) ],
 		find: [],
 		get: [],
 		create: [],
