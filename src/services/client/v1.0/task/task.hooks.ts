@@ -1,6 +1,7 @@
 import * as authentication from '@feathersjs/authentication';
 import dtoExchange from '../../../../hooks/dto-exchange';
 import { preventChanges } from 'feathers-hooks-common';
+import checkListExists from '../../../../hooks/check-list-exists';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
@@ -20,7 +21,7 @@ const dtoOptions = {
 
 export default {
 	before: {
-		all: [ authenticate('jwt'), dtoExchange(dtoOptions.incoming) ],
+		all: [authenticate('jwt'), dtoExchange(dtoOptions.incoming), checkListExists()],
 		find: [ addListToParams ],
 		get: [ addListToParams ],
 		create: [ addListToData ],

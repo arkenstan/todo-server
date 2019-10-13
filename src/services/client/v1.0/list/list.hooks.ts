@@ -1,5 +1,5 @@
 import * as authentication from '@feathersjs/authentication';
-import { preventChanges, disallow } from 'feathers-hooks-common';
+import { required, preventChanges, disallow } from 'feathers-hooks-common';
 import dtoExchange from '../../../../hooks/dto-exchange';
 // Don't remove this comment. It's needed to format import lines nicely.
 const { authenticate } = authentication.hooks;
@@ -17,7 +17,7 @@ export default {
 		all: [ authenticate('jwt'), dtoExchange(dtoOptions.incoming) ],
 		find: [],
 		get: [],
-		create: [],
+		create: [ required('listName') ],
 		update: [ disallow('external') ],
 		patch: [ preventChanges(true, ...options.fieldsToPreventChanges) ],
 		remove: []
