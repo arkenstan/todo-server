@@ -1,33 +1,30 @@
 import * as authentication from '@feathersjs/authentication';
 import dtoExchange from '../../../../hooks/dto-exchange';
-import { preventChanges } from 'feathers-hooks-common';
+import { preventChanges, disallow } from 'feathers-hooks-common';
 import checkListExists from '../../../../hooks/check-list-exists';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
 const { setField } = require('feathers-authentication-hooks');
 
-const addListToParams = setField({ from: 'params.route.listId', as: 'params.query.listRef' });
-const addListToData = setField({ from: 'params.route.listId', as: 'data.listRef' });
-
 const options = {
 	fieldsToPreventChanges: [ 'createdBy' ]
 };
 
 const dtoOptions = {
-	incoming: { taskId: '_id', listId: 'listRef', title: 'content', status: 'completed' },
-	outgoing: { _id: 'taskId', listRef: 'listId', content: 'title', completed: 'status' }
+	incoming: { taskId: '_id', title: 'content', status: 'completed', owner: 'createdBy' },
+	outgoing: { _id: 'taskId', content: 'title', completed: 'status', createdBy: owner }
 };
 
 export default {
 	before: {
-		all: [authenticate('jwt'), dtoExchange(dtoOptions.incoming), checkListExists()],
-		find: [ addListToParams ],
-		get: [ addListToParams ],
-		create: [ addListToData ],
-		update: [ addListToParams ],
-		patch: [ addListToParams ],
-		remove: [ addListToParams ]
+		all: [ authenticate('jwt'), dtoExchange(dtoOptions.incoming) ],
+		find: [],
+		get: [],
+		create: [],
+		update: [ disallow('external') ],
+		patch: [ preventChanges(true, ...options.fieldsToPreventChanges) ],
+		remove: []
 	},
 
 	after: {

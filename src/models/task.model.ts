@@ -13,7 +13,6 @@ export default function(app: Application) {
 			refId: { type: String, required: true, default: uuid.v1 },
 			completed: { type: Boolean, default: false },
 			content: { type: String, required: true },
-			listRef: { type: String, required: true },
 			createdBy: { type: String, required: true }
 		},
 		{

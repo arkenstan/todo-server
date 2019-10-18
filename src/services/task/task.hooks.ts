@@ -7,7 +7,7 @@ const { setField } = require('feathers-authentication-hooks');
 
 const setUserId = setField({ from: 'params.user._id', as: 'data.createdBy' });
 const limitToUser = setField({ from: 'params.user._id', as: 'params.query.createdBy' });
-const requiredFields = [ 'listRef' ];
+const requiredFields = [ 'content' ];
 
 export default {
 	before: {
