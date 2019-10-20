@@ -1,13 +1,7 @@
 import { Id, NullableId, Paginated, Params, ServiceMethods } from '@feathersjs/feathers';
 import { Application } from '../../../../declarations';
 
-interface Data {
-	_id: string;
-	content?: string;
-	status?: string;
-	listRef: string;
-	createdBy?: string;
-}
+interface Data {}
 
 interface ServiceOptions {}
 

@@ -16,7 +16,13 @@ export default (exchangeSchema: any): Hook => {
 				transferObj = { ...transferObj, [exchangeSchema[key]]: dataObj[key] };
 			}
 		}
-		context.data = transferObj;
+		console.log(transferObj);
+		if (context.type === 'before') {
+			context.data = transferObj;
+		} else if (context.type === 'after') {
+			context.result = transferObj;
+		}
+
 		return context;
 	};
 };

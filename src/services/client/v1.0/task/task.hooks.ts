@@ -11,14 +11,14 @@ const options = {
 	fieldsToPreventChanges: [ 'createdBy' ]
 };
 
-const dtoOptions = {
-	incoming: { taskId: '_id', title: 'content', status: 'completed', owner: 'createdBy' },
-	outgoing: { _id: 'taskId', content: 'title', completed: 'status', createdBy: owner }
-};
+// const dtoOptions = {
+// 	incoming: { taskId: '_id', title: 'content', status: 'completed', owner: 'createdBy' },
+// 	outgoing: { _id: 'taskId', content: 'title', completed: 'status', createdBy: 'owner' }
+// };
 
 export default {
 	before: {
-		all: [ authenticate('jwt'), dtoExchange(dtoOptions.incoming) ],
+		all: [ authenticate('jwt') ],
 		find: [],
 		get: [],
 		create: [],
@@ -28,7 +28,7 @@ export default {
 	},
 
 	after: {
-		all: [ dtoExchange(dtoOptions.outgoing) ],
+		all: [],
 		find: [],
 		get: [],
 		create: [],
