@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-    dockerfile {
-      filename 'DockerFile'
-    }
-
-  }
+  agent none
   stages {
     stage('Clone and checkout') {
       steps {
