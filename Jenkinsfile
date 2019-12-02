@@ -7,14 +7,9 @@ pipeline {
   }
   stages {
     stage('Clone and checkout') {
-      agent {
-        dockerfile {
-          filename 'dockerfile'
-        }
-
-      }
       steps {
         git(url: 'https://github.com/arkenstan/todo-server.git', branch: 'dev')
+        sh 'ls'
       }
     }
 
