@@ -10,8 +10,7 @@ pipeline {
 
     stage('Image build') {
       steps {
-        sh '''docker ps -a
-docker pull node'''
+        sh 'docker build --rm .'
       }
     }
 
