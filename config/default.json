@@ -3,14 +3,17 @@
   "port": 3030,
   "public": "../public/",
   "paginate": {
-    "default": 100,
-    "max": 200
+    "default": 10,
+    "max": 50
   },
   "authentication": {
     "entity": "user",
     "service": "users",
     "secret": "wBOfwsF8rIs1ZQf75qNq/obKWWQ=",
-    "authStrategies": ["jwt", "local"],
+    "authStrategies": [
+      "jwt",
+      "local"
+    ],
     "jwtOptions": {
       "header": {
         "typ": "access"
